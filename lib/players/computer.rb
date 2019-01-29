@@ -36,9 +36,13 @@ class Computer < Player
     sleep(@timer)
     input.to_s
   end
+  
+  
   def other
     token == "X" ? "O" : "X"
   end
+  
+  
   def winning_move
     winning_row = WIN_COMBINATIONS.find do |combo|
       (board.cells[combo[0]] == token && board.cells[combo[1]] == token && board.cells[combo[2]] == " ") || (board.cells[combo[2]] == token && board.cells[combo[1]] == token && board.cells[combo[0]] == " ") || (board.cells[combo[0]] == token && board.cells[combo[2]] == token && board.cells[combo[1]] == " ")
@@ -47,6 +51,8 @@ class Computer < Player
       winning_cell = winning_row.find {|cell| board.cells[cell] == " "}
     end
   end
+  
+  
   def blocking_move
     winning_row = WIN_COMBINATIONS.find do |combo|
       (board.cells[combo[0]] == other && board.cells[combo[1]] == other && board.cells[combo[2]] == " ") || (board.cells[combo[1]] == other && board.cells[combo[2]] == other && board.cells[combo[0]] == " ") || (board.cells[combo[2]] == other && board.cells[combo[0]] == other && board.cells[combo[1]] == " ")
@@ -55,15 +61,23 @@ class Computer < Player
       winning_cell = winning_row.find {|cell| board.cells[cell] == " "}
     end
   end
+  
+  
   def center?
     board.cells[4] == " "
   end
+  
+  
   def corners
     CORNERS.shuffle!
   end
+
+  
   def corner
     corners.find {|corner| board.cells[corner] == " "}
   end
+  
+  
   def opposite_corner
     case
       when board.taken?(1) && !board.taken?(9)
